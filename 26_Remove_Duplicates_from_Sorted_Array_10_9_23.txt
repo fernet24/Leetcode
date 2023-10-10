@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+
+namespace Testing
+{
+    class Program
+    {
+        public static int RemoveDuplicates(int[] nums)
+        {
+            List<int> unique = new List<int>();
+
+            for (int x = 0; x < nums.Length; x++)
+            {
+                for(int y  = 0; y < nums.Length; y++)
+                {
+                    if(x != y)
+                    {
+                        if (nums[x] == nums[y]) // LEFT OFF!!!
+                        {
+                            unique.Add(y);
+                            Console.WriteLine(nums[y]);
+                        }
+                    }
+
+                }
+            }
+
+
+
+            //the number of unique elements in array nums
+            int k = unique.Count;
+
+            return k;
+        }
+        static void Main(string[] args)
+        {
+            int[] nums = { 1, 2, 3, 2, 5, 6, 7, 1, 9, 10, 7 }; // 3 duplicate values
+
+            int k = RemoveDuplicates(nums);
+
+            Console.WriteLine(k);
+        }
+    }
+}
