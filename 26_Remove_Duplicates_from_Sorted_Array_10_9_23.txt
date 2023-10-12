@@ -1,44 +1,100 @@
-using System;
-using System.Collections.Generic;
-
-namespace Testing
-{
-    class Program
-    {
+  /**
+         * Author: Eric Ramirez
+         * Title: (26) Remove Duplicates From Sorted Array
+         * Description: Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such 
+         * that each unique element appears only once. The relative order of the elements should be kept the same. Then 
+         * return the number of unique elements in nums.
+         * 
+         * Allocated Space:
+         * 
+         * List unique -> stores non-duplicate elements from array nums
+         * int k -> stores the number of unique elements
+         * 
+         * Time Complexity:
+         * Space Complexity:
+         * 
+         */
         public static int RemoveDuplicates(int[] nums)
         {
             List<int> unique = new List<int>();
 
+            Console.WriteLine("\nUnique values stored in array: ");
             for (int x = 0; x < nums.Length; x++)
             {
-                for(int y  = 0; y < nums.Length; y++)
+                Console.WriteLine("LH: " + nums[x]);
+
+                for (int y = 0; y < nums.Length; y++)
                 {
-                    if(x != y)
+                    if (unique.Contains(nums[x]))
                     {
-                        if (nums[x] == nums[y]) // LEFT OFF!!!
+                        Console.WriteLine("Contains: yes " + nums[x]);
+                        if (x != nums.Length - 1)
+                            y = nums.Length - 1;
+                    }
+                    else
+                    {
+                        if (nums[x] == nums[y])
                         {
-                            unique.Add(y);
-                            Console.WriteLine(nums[y]);
+                            Console.WriteLine("Adding to UNIQUE: " + nums[y]);
+                            unique.Add(nums[y]);
+
                         }
                     }
 
                 }
+
             }
 
+            //pass array unique values to array nums
+            for(int i = 0; i < unique.Count;i++)
+            {
+                if(i == (unique.Count - 1))
+                {
+                    int max = nums.Length - unique.Count;
+                        
+                }
 
+                nums[i] = unique[i];
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+                Console.WriteLine(nums[i]);
+
+
+            //Print all unique elements
+            Console.WriteLine("\nUnique values in array: ");
+
+            for (int i = 0; i < unique.Count; i++)
+                Console.WriteLine(unique[i]);
 
             //the number of unique elements in array nums
             int k = unique.Count;
 
+
             return k;
         }
+
+
         static void Main(string[] args)
         {
-            int[] nums = { 1, 2, 3, 2, 5, 6, 7, 1, 9, 10, 7 }; // 3 duplicate values
+            //int[] nums = { 1, 2, 3, 2, 5, 6, 7, 1, 9, 10, 7 }; // duplicate values: 1, 2, 7, (11 - 3 = 8) {1,2,3,5,6,7,9,10}
+
+            //int[] nums = { 0, 1, 2, 1, 3, 2 };
+
+            int[] nums = { 1, 1, 2 };
+
+            //int[] nums = { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
 
             int k = RemoveDuplicates(nums);
 
-            Console.WriteLine(k);
+            Console.WriteLine("Total unique values: " + k);
+
+            //// Create an index for an array.
+            //int index;
+
+            //// Perform some action that sets the index.
+            //index = -40;
+
+            //// Test that the index value is valid.
+            //Debug.Assert(index > -1, "Incorrect");
         }
-    }
-}
