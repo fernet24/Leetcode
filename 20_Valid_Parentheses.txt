@@ -1,0 +1,330 @@
+
+public static bool IsValid(string s)
+        {
+            List<char> chars_parenthesis = new List<char>();
+
+            foreach (var single_parenthesis in s)
+            {
+                //Console.WriteLine($"{single_parenthesis}");
+
+                chars_parenthesis.Add(single_parenthesis);
+
+            }
+
+
+            //Console.WriteLine(chars_parenthesis.First() + ", " + chars_parenthesis.Last());
+
+            if (chars_parenthesis.First() == ')' || chars_parenthesis.First() == '}' || chars_parenthesis.First() == ']')
+                return false;
+            //else if (chars_parenthesis.First() == '(')
+            //{
+            //    if (chars_parenthesis.Last() == '}')
+            //        return false;
+            //    else if (chars_parenthesis.Last() == ']')
+            //        return false;
+            //}
+            //else if (chars_parenthesis.First() == '{')
+            //{
+            //    if (chars_parenthesis.Last() == ')')
+            //        return false;
+            //    else if (chars_parenthesis.Last() == ']')
+            //        return false;
+            //}
+            //else if (chars_parenthesis.First() == '[')
+            //{
+            //    if (chars_parenthesis.Last() == '}')
+            //        return false;
+            //    else if (chars_parenthesis.Last() == ')')
+            //        return false;
+            //}
+
+
+            bool flag = false;
+            int i = 0;
+
+            while((!flag) || (i < chars_parenthesis.Count - 1))
+            {
+                Console.WriteLine("index: " + i + ", chars_count: " + chars_parenthesis.Count);
+
+                if (i==(chars_parenthesis.Count - 1))
+                    flag = true;
+
+                if (chars_parenthesis[i] == '(')
+                {
+                    for (int x = i; x < chars_parenthesis.Count; x++)
+                    {
+                        if (chars_parenthesis[x] == ')')
+                        {
+
+                            chars_parenthesis[x] = '0';
+                            chars_parenthesis[i] = '0';
+                        }
+
+                    }
+                }
+                else if (chars_parenthesis[i] == '{')
+                {
+                    Console.WriteLine(i);
+                    for (int x = i; x < chars_parenthesis.Count; x++)
+                    {
+                        if (chars_parenthesis[x] == '}')
+                        {
+                            chars_parenthesis[x] = '0';
+                            chars_parenthesis[i] = '0';
+                        }
+                    }
+                }
+                else if (chars_parenthesis[i] == '[')
+                {
+                    for (int x = i; x < chars_parenthesis.Count; x++)
+                    {
+                        if (chars_parenthesis[x] == ']')
+                        {
+                            chars_parenthesis[x] = '0';
+                            chars_parenthesis[i] = '0';
+                        }
+                    }
+                }
+
+                i++;
+            }
+
+            Console.WriteLine("MAX: " + chars_parenthesis.Count);
+
+            for (int j = 0; j < chars_parenthesis.Count; j++)
+            {
+                Console.WriteLine(chars_parenthesis[j]);
+            }
+            if (chars_parenthesis.Contains('0'))
+                return true;
+
+            return false;
+        }
+        /*
+         * Author: Eric Ramirez
+         * Title: (20) Valid Parentheses
+         * Description: 
+         * 
+         * EXAMPLE: "{[]}"
+         * 
+         * Time Complexity:
+         * Space Complexity:
+         * 
+         * Algorithm:
+         * 1. IF first element is a closed parenthesis, THEN return FALSE.
+           2. IF element is an OP, THEN iterate via array to find CP, IF there is not an CP, then return FALSE.
+	            ELSE, remove CP & IF NOT index is not max, then JUMP to STEP 2. ELSE JUMP to STEP 3.
+           3. IF list is NOT vacant, THEN return FALSE.
+         *  
+         *  
+         * 
+         */
+        public static bool ThirdAttempt(string s)
+        {
+            List<char> chars_parenthesis = new List<char>();
+
+            foreach (var single_parenthesis in s)
+            {
+                //Console.WriteLine($"{single_parenthesis}");
+
+                chars_parenthesis.Add(single_parenthesis);
+
+            }
+
+            if (chars_parenthesis.First() == ')' || chars_parenthesis.First() == '}' || chars_parenthesis.First() == ']')
+                return false;
+
+            Console.WriteLine("MAX: " + chars_parenthesis.Count);
+
+            for (int i = 0;  i < chars_parenthesis.Count - 1; i++)
+            {
+                Console.WriteLine("outer index: " + chars_parenthesis.Count);
+                if (chars_parenthesis[i] == '(')
+                {
+                    Console.WriteLine(i);
+                    for (int x = i; x < chars_parenthesis.Count; x++)
+                    {
+                        if (chars_parenthesis[x] == ')')
+                        {
+                            chars_parenthesis.RemoveAt(x);
+                            chars_parenthesis.RemoveAt(i);
+                            //x = chars_parenthesis.Count - 1;
+                            i = 0;
+                        }
+                            
+                    }
+                }
+                else if (chars_parenthesis[i] == '{')
+                {
+                    Console.WriteLine(i);
+                    for (int x = i; x < chars_parenthesis.Count; x++)
+                    {
+                        if (chars_parenthesis[x] == '}')
+                        {
+                            chars_parenthesis.RemoveAt(x);
+                            chars_parenthesis.RemoveAt(i);
+                            //x = chars_parenthesis.Count - 1;
+                           i = 0;
+                        }
+
+                    }
+                }
+                else if (chars_parenthesis[i] == '[')
+                {
+                    Console.WriteLine("inside [ : " + i);
+                    for (int x = i; x < chars_parenthesis.Count; x++)
+                    {
+                        if (chars_parenthesis[x] == ']')
+                        {
+                            chars_parenthesis.RemoveAt(x);
+                            chars_parenthesis.RemoveAt(i);
+                            //x = chars_parenthesis.Count - 1;
+                            i = 0;
+                        }
+
+                    }
+                }
+            }
+
+            //for(int i = 0; i < chars_parenthesis.Count; i++)
+            //{
+
+            //    if (chars_parenthesis[i] == '[')
+            //    {
+            //        for (int x = i; x < chars_parenthesis.Count; x++)
+            //        {
+            //            if (chars_parenthesis[x] == ']')
+            //            {
+            //                chars_parenthesis.RemoveAt(x);
+            //                chars_parenthesis.RemoveAt(i);
+            //                //x = chars_parenthesis.Count - 1;
+            //                x = 0;
+            //            }
+
+            //        }
+            //    }
+            //}
+
+            for (int i = 0; i < chars_parenthesis.Count; i++)
+            {
+                Console.WriteLine(chars_parenthesis[i]);
+            }
+
+            //Console.WriteLine("MAX: " + chars_parenthesis.Count);
+
+            return true;
+        }
+
+                /*
+         * Author: Eric Ramirez
+         * Title: (20) Valid Parentheses
+         * Description: 
+         * 
+         * EXAMPLE: "{[]}"
+         * 
+         * Time Complexity:
+         * Space Complexity:
+         * 
+         * Algorithm:
+         * 1. Split the given string & store every character seperately in array chars_parenthesis
+         * 2. IF element is an open parenthesis, then IF the following element is NOT a closing parenthesis return false 
+         *  
+         *  
+         * 
+         */
+        public static bool SecondAttempt(string s)
+        {
+            List<char> chars_parenthesis = new List<char>();
+
+            foreach (var single_parenthesis in s)
+            {
+                Console.WriteLine($"{single_parenthesis}");
+
+                chars_parenthesis.Add(single_parenthesis);
+
+            }
+
+            for (int i = 0; i < chars_parenthesis.Count; i++)
+            {
+                if (chars_parenthesis[i] == '(')
+                {
+                    if (chars_parenthesis[++i] != ')')
+                        return false;
+                }
+                if (chars_parenthesis[i] == '{')
+                {
+                    if (chars_parenthesis[++i] != '}')
+                        return false;
+                }
+                if (chars_parenthesis[i] == '[')
+                {
+                    if (chars_parenthesis[++i] != ']')
+                        return false;
+                }
+            }
+
+
+            return false;
+        }
+
+
+        public static bool FirstAttempt(string s)
+        {
+            //string[] parenthesis = { "(", ")", "{", "}", "[", "]" };
+            //string[] parenthesis = { "()", "{}", "[]" };
+
+            string[] test_parenthesis = s.Split(' ');
+
+            Hashtable table = new Hashtable();
+            table.Add("()", false);
+            table.Add("{}", false);
+            table.Add("[]", false);
+
+            //List<string> parenthesis = new List<string>();
+            //parenthesis.Add("()");
+            //parenthesis.Add("{}");
+            //parenthesis.Add("[]");
+
+            int i = table.Count;
+            List<string> results = new List<string>();
+
+            //split each word
+            foreach (var word in test_parenthesis)
+            {
+                Console.WriteLine($"{word}");
+
+                if(table.ContainsKey(word))
+                {
+                    //Console.WriteLine("yes");
+                    //table[word] = true;
+
+                    results.Add("yes");
+                }
+                else
+                    results.Add("no");
+                
+            }
+            if (results.Contains("no"))
+                return false;
+
+            //if(table.ContainsValue(false))
+            //    return false;
+
+
+            return true;
+        }
+
+        static void Main(string[] args)
+        {
+            //string s = "()";
+
+            //string s = "()[]{}";
+
+            //string s = "(]";
+
+            string s = "([)]";
+
+            bool result = IsValid(s);
+
+            Console.WriteLine(result);
+        }
